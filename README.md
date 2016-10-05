@@ -107,10 +107,255 @@ CDN 같은?
 
 단순히 의존 모듈 몇 개 묶어서 쓰기엔 너무 복잡해보이네요
 
-- 그렇죠. 그래서 그게 Grunt나 Gulp 나 Broccoli 같은 태스트 매니저를 사용해서 Browerify 실행을 자동화시키는 이유에요. 아맞다! Mimosa를 써도 되구요.
+- 그렇죠. 그래서 그게 Grunt나 Gulp 나 Broccoli 같은 태스크 매니저를 사용해서 Browerify 실행을 자동화시키는 이유에요. 아맞다! Mimosa를 써도 되구요.
 
 그런트? 걸프? 브로콜리? 미모사? 아놔 뭐에요 이건?
 
-- 태스트 매니저들요. 그런데 사실 요즘엔 좀 그렇고 2015년정도엔 그런걸 썼죠. 그런데 지금은 묶는데 Webpack 써요.
+- 태스크 매니저들요. 그런데 사실 요즘엔 좀 그렇고 2015년정도엔 그런걸 썼죠. 그런데 지금은 묶는데 Webpack 써요.
 
-.... 이하 생략
+.... 이하 미번역
+
+Makefiles? I thought that was mostly used on C or C++ projects.
+
+-Yeah, but apparently in the web we love making things complicated and then going back to the basics. We do that every year or so, just wait for it, we are going to do assembly in the web in a year or two.
+
+Sigh. You mentioned something called Webpack?
+
+-It’s another module manager for the browser while being kind of a task runner as well. It’s like a better version of Browserify.
+
+Oh, Ok. Why is it better?
+
+-Well, maybe not better, it’s just more opinionated on how your dependencies should be tied. Webpack allows you to use different module managers, and not only CommonJS ones, so for instance native ES6 supported modules.
+
+I’m extremely confused by this whole CommonJS/ES6 thing.
+
+-Everyone is, but you shouldn’t care anymore with SystemJS.
+
+Jesus christ, another noun
+
+-js. Ok, and what is this SystemJS?
+
+-Well, unlike Browserify and Webpack 1.x, SystemJS is a dynamic module loader that allows you to tie multiple modules in multiple files instead of bundling them in one big file.
+
+Wait, but I thought we wanted to build our libraries in one big file and load that!
+
+-Yes, but because HTTP/2 is coming now multiple HTTP requests are actually better.
+
+Wait, so can’t we just add the three original libraries for React??
+
+-Not really. I mean, you could add them as external scripts from a CDN, but you would still need to include Babel then.
+
+Sigh. And that is bad right?
+
+-Yes, you would be including the entire babel-core, and it wouldn’t be efficient for production. On production you need to perform a series of pre-tasks to get your project ready that make the ritual to summon Satan look like a boiled eggs recipe. You need to minify assets, uglify them, inline css above the fold, defer scripts, as well as
+
+I got it, I got it. So if you wouldn’t include the libraries directly in a CDN, how would you do it?
+
+-I would transpile it from Typescript using a Webpack + SystemJS + Babel combo.
+
+Typescript? I thought we were coding in JavaScript!
+
+-Typescript IS JavaScript, or better put, a superset of JavaScript, more specifically JavaScript on version ES6. You know, that sixth version we talked about before?
+
+I thought ES2016+ was already a superset of ES6! WHY we need now this thing called Typescript?
+
+-Oh, because it allows us to use JavaScript as a typed language, and reduce run-time errors. It’s 2016, you should be adding some types to your JavaScript code.
+
+And Typescript obviously does that.
+
+-Flow as well, although it only checks for typing while Typescript is a superset of JavaScript which needs to be compiled.
+
+Sigh… and Flow is?
+
+-It’s a static type checker made by some guys at Facebook. They coded it in OCaml, because functional programming is awesome.
+
+OCaml? Functional programming?
+
+-It’s what the cool kids use nowadays man, you know, 2016? Functional programming? High order functions? Currying? Pure functions?
+
+I have no idea what you just said.
+
+-No one does at the beginning. Look, you just need to know that functional programming is better than OOP and that’s what we should be using in 2016.
+
+Wait, I learned OOP in college, I thought that was good?
+
+-So was Java before being bought by Oracle. I mean, OOP was good back in the days, and it still has its uses today, but now everyone is realising modifying states is equivalent to kicking babies, so now everyone is moving to immutable objects and functional programming. Haskell guys had been calling it for years, 
+
+-and don’t get me started with the Elm guys
+
+- but luckily in the web now we have libraries like Ramda that allow us to use functional programming in plain JavaScript.
+Are you just dropping names for the sake of it? What the hell is Ramnda?
+
+-No. Ramda. Like Lambda. You know, that David Chambers’ library?
+
+David who?
+
+-David Chambers. Cool guy. Plays a mean Coup game. One of the contributors for Ramda. You should also check Erik Meijer if you are serious about learning functional programming.
+
+And Erik Meijer is…?
+
+-Functional programming guy as well. Awesome guy. He has a bunch of presentations where he trashes Agile while using this weird coloured shirt. You should also check some of the stuff from Tj, Jash Kenas, Sindre Sorhus, Paul Irish, Addy Osmani-
+
+Ok. I’m going to stop you there. All that is good and fine, but I think all that is just so complicated and unnecessary for just fetching data and displaying it. I’m pretty sure I don’t need to know these people or learn all those things to create a table with dynamic data. Let’s get back to React. How can I fetch the data from the server with React?
+
+-Well, you actually don’t fetch the data with React, you just display the data with React.
+
+Oh, damn me. So what do you use to fetch the data?
+
+-You use Fetch to fetch the data from the server.
+
+I’m sorry? You use Fetch to fetch the data? Whoever is naming those things needs a thesaurus.
+
+-I know right? Fetch it’s the name of the native implementation for performing XMLHttpRequests against a server.
+
+Oh, so AJAX.
+
+-AJAX is just the use of XMLHttpRequests. But sure. Fetch allows you to do AJAX based in promises, which then you can resolve to avoid the callback hell.
+
+Callback hell?
+
+-Yeah. Every time you perform an asynchronous request against the server, you need to wait for its response, which then makes you to add a function within a function, which is called the callback pyramid from hell.
+
+Oh, Ok. And this promise thing solves it?
+
+-Indeed. By manipulating your callbacks through promises, you can write easier to understand code, mock and test them, as well as perform simultaneous requests at once and wait until all of them are loaded.
+
+And that can be done with Fetch?
+
+-Yes, but only if your user uses an evergreen browser, otherwise you need to include a Fetch polyfill or use Request, Bluebird or Axios.
+
+How many libraries do I need to know for god’s sake? How many are of them?
+
+-It’s JavaScript. There has to be thousands of libraries that all do the same thing. We know libraries, in fact, we have the best libraries. Our libraries are huuuge, and sometimes we include pictures of Guy Fieri in them.
+
+Did you just say Guy Fieri? Let’s get this over with. What these Bluebird, Request, Axios libraries do?
+
+-They are libraries to perform XMLHttpRequests that return promises.
+
+Didn’t jQuery’s AJAX method start to return promises as well?
+
+-We don’t use the “J” word in 2016 anymore. Just use Fetch, and polyfill it when it’s not in a browser or use Bluebird, Request or Axios instead. Then manage the promise with await within an async function and boom, you have proper control flow.
+
+It’s the third time you mention await but I have no idea what it is.
+
+-Await allows you to block an asynchronous call, allowing you to have better control on when the data is being fetch and overall increasing code readability. It’s awesome, you just need to make sure you add the stage-3 preset in Babel, or use syntax-async-functions and transform-async-to-generator plugin.
+
+This is insane.
+
+-No, insane is the fact you need to precompile Typescript code and then transpile it with Babel to use await.
+
+Wat? It’s not included in Typescript?
+
+-It does in the next version, but as of version 1.7 it only targets ES6, so if you want to use await in the browser, first you need to compile your Typescript code targeting ES6 and then Babel that shit up to target ES5.
+
+At this point I don’t know what to say.
+
+-Look, it’s easy. Code everything in Typescript. All modules that use Fetch compile them to target ES6, transpile them with Babel on a stage-3 preset, and load them with SystemJS. If you don’t have Fetch, polyfill it, or use Bluebird, Request or Axios, and handle all your promises with await.
+
+We have very different definitions of easy. So, with that ritual I finally fetched the data and now I can display it with React right?
+
+-Is your application going to handle any state changes?
+
+Err, I don’t think so. I just need to display the data.
+
+-Oh, thank god. Otherwise I would had to explain you Flux, and implementations like Flummox, Alt, Fluxible. Although to be honest you should be using Redux.
+
+I’m going to just fly over those names. Again, I just need to display data.
+
+-Oh, if you are just displaying the data you didn’t need React to begin with. You would had been fine with a templating engine.
+
+Are you kidding me? Do you think this is funny? Is that how you treat your loved ones?
+
+-I was just explaining what you could use.
+
+Stop. Just stop.
+
+-I mean, even if it’s just using templating engine, I would still use a Typescript + SystemJS + Babel combo if I were you.
+
+I need to display data on a page, not perform Sub Zero’s original MK fatality. Just tell me what templating engine to use and I’ll take it from there.
+
+-There’s a lot, which one you are familiar with?
+
+Ugh, can’t remember the name. It was a long time ago.
+
+-jTemplates? jQote? PURE?
+
+Err, doesn’t ring a bell. Another one?
+
+-Transparency? JSRender? MarkupJS? KnockoutJS? That one had two-way binding.
+
+Another one?
+
+-PlatesJS? jQuery-tmpl? Handlebars? Some people still use it.
+
+Maybe. Are there similar to that last one?
+
+-Mustache, underscore? I think now even lodash has one to be honest, but those are kind of 2014.
+
+Err.. maybe it was newer.
+
+-Jade? DustJS?
+
+No.
+
+-DotJS? EJS?
+
+No.
+
+-Nunjucks? ECT?
+
+No.
+
+-Mah, no one likes Coffeescript syntax anyway. Jade?
+
+No, you already said Jade.
+
+-I meant Pug. I meant Jade. I mean, Jade is now Pug.
+
+Sigh. No. Can’t remember. Which one would you use?
+
+-Probably just ES6 native template strings.
+
+Let me guess. And that requires ES6.
+
+-Correct.
+
+Which, depending on what browser I’m using needs Babel.
+
+-Correct.
+
+Which, if I want to include without adding the entire core library, I need to load it as a module from npm.
+
+-Correct.
+
+Which, requires Browserify, or Wepback, or most likely that other thing called SystemJS.
+
+-Correct.
+
+Which, unless it’s Webpack, ideally should be managed by a task runner.
+
+-Correct.
+
+But, since I should be using functional programming and typed languages I first need to pre-compile Typescript or add this Flow thingy.
+
+-Correct.
+
+And then send that to Babel if I want to use await.
+
+-Correct.
+
+So I can then use Fetch, promises, and control flow and all that magic.
+
+-Just don’t forget to polyfill Fetch if it’s not supported, Safari still can’t handle it.
+
+You know what. I think we are done here. Actually, I think I’m done. I’m done with the web, I’m done with JavaScript altogether.
+
+-That’s fine, in a few years we all are going to be coding in Elm or WebAssembly.
+
+I’m just going to move back to the backend. I just can’t handle these many changes and versions and editions and compilers and transpilers. The JavaScript community is insane if it thinks anyone can keep up with this.
+
+-I hear you. You should try the Python community then.
+
+Why?
+
+-Ever heard of Python 3?
