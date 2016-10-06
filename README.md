@@ -111,51 +111,50 @@ CDN 같은?
 
 그런트? 걸프? 브로콜리? 미모사? 아놔 뭐에요 이건?
 
-- 태스크 매니저들요. 그런데 사실 요즘엔 좀 그렇고 2015년정도엔 그런걸 썼죠. 그런데 지금은 묶는데 Webpack 써요.
+- 태스크 매니저들요. 그런데 사실 요즘엔 좀 그렇고 2015년정도엔 그런걸 Makefiles 처럼 썼죠. 그런데 지금은 묶는데 Webpack 써요.
+
+메이크파일요? 보통 C나 C++ 프로젝트들에서 쓰였던걸로 알고있었는데요 
+
+- 그렇죠. 그런데 웹쪽에선 확실히 뭔가 복잡하게 만든 다음 다시 기본으로 돌아가는 경향이 있어요. 거의 매년 그런편이에요. 좀더 있어보면 아마 앞으로 수년내로 웹에서 어셈블리를 하게 될걸요.
+
+음냐.. 웹팩이라는것도 언급하셨었는데?
+
+- 그건 브라우저용 또다른 모듈 매니저인데요 태스크 러너의 일종이기도 해요. Browserify의 좀 더 나은 버전이랄까요.
+
+아.. 네.. 어떻게 더 나은데요?
+
+- 글쎄요.. 뭐 꼭 더 나은건 아닐수도 있긴한데요, 의존관계들이 어떻게 묶여야 하는지에 대한 자신만의 고정방식이 있어요.  웹팩은 CommonJS 뿐 아니라 다른 모듈 매니저들도 쓸수 있어요. 이를테면 ES6 지원하는 기본 모듈같은.
+
+CommonJS니 ES6니 당췌 전 뭐가 뭔지 모르겠네요.
+
+- 다들 그래요. 그래도 SystemJS는 더 이상 신경쓰지 마시구요.
+
+- 맙소사, 또 다른 무슨무슨JS 등장! 좋아요. 이 SystemJS라는 건 뭔데요?
+
+- 음.. Browerify나 Webpack 1.x 랑은 다르게 SystemJS는 동적 모듈 로더인데요 하나의 커다란 파일로 묶지 않고 여려개의 모듈을 다시 복수개의 파일로 묶을 수 있게 해줘요.
+
+잠시만요. 전 우리가 사용하는 라이브러리들을 큰 파일 하나로 만들어서 읽어들이게 하려는 줄 알았는데요?
+
+- 네, 그런데 요샌 HTTP/2가 도래하는 중이라서 요청을 여러번 보내는게 실제론 더 나아요.
+
+잠깐만요, 그냥 오리지널 라이브러리 세 개 넣어놓고 React 쓰면 안되요?
+
+- 그렇겐 안되요. 그러니까 제말은, CDN을 이용해서 외부 스크립트처럼 추가할수는 있지만, 그래도 Babel은 여전히 같이 포함시킬 필요가 있어요.
+
+후우.. 그리고 그건 좋지 않다...는거죠?
+
+- 네. babel-core 전체를 포함시켜야만 하는데 실운영환경엔 적절하지 않아요. 운영환경에는 프로젝트를 잘 준비시켜 놓는 일련의 사전작업이 필요거든요. 마치 사탄을 소환하기 위한 끓인 계란 반죽같은걸 만드는 의식처럼요. 관련파일들을 최적화한다음 난독화시키고, 접힌상태의 css를 인라인으로 넣고, 스크립트를 비동기지연으로 읽어들이도록 하는 작업 등등이 필요해요.
+
+알았어요. 알았다구요. 그러니까 CDN을 이용해 바로 추가하면 안된다 이거잖아요. 그럼 어떻게 해요?
+
+- 저라면 Webpack + SystemJS + Bable 조합을 사용하는 Typescript로부터 변환시켜 가져올거에요.
+
+타입스크립트? 저는 우리가 자바스크립트로 코딩할거라고 생각했는데요?
+
+- Typescript는요 자바스크립트이구요 그러면서도 더 나은 것들이 들어간 자바스크립의 상위세트이고, 구체적으로 따진다면 ES6 버전 기반의 자바스크립트죠. 앞서 말했듯이 ES6는 6번째 버전을 말하는거구요.
 
 .... 이하 미번역
 
-Makefiles? I thought that was mostly used on C or C++ projects.
-
--Yeah, but apparently in the web we love making things complicated and then going back to the basics. We do that every year or so, just wait for it, we are going to do assembly in the web in a year or two.
-
-Sigh. You mentioned something called Webpack?
-
--It’s another module manager for the browser while being kind of a task runner as well. It’s like a better version of Browserify.
-
-Oh, Ok. Why is it better?
-
--Well, maybe not better, it’s just more opinionated on how your dependencies should be tied. Webpack allows you to use different module managers, and not only CommonJS ones, so for instance native ES6 supported modules.
-
-I’m extremely confused by this whole CommonJS/ES6 thing.
-
--Everyone is, but you shouldn’t care anymore with SystemJS.
-
-Jesus christ, another noun
-
--js. Ok, and what is this SystemJS?
-
--Well, unlike Browserify and Webpack 1.x, SystemJS is a dynamic module loader that allows you to tie multiple modules in multiple files instead of bundling them in one big file.
-
-Wait, but I thought we wanted to build our libraries in one big file and load that!
-
--Yes, but because HTTP/2 is coming now multiple HTTP requests are actually better.
-
-Wait, so can’t we just add the three original libraries for React??
-
--Not really. I mean, you could add them as external scripts from a CDN, but you would still need to include Babel then.
-
-Sigh. And that is bad right?
-
--Yes, you would be including the entire babel-core, and it wouldn’t be efficient for production. On production you need to perform a series of pre-tasks to get your project ready that make the ritual to summon Satan look like a boiled eggs recipe. You need to minify assets, uglify them, inline css above the fold, defer scripts, as well as
-
-I got it, I got it. So if you wouldn’t include the libraries directly in a CDN, how would you do it?
-
--I would transpile it from Typescript using a Webpack + SystemJS + Babel combo.
-
-Typescript? I thought we were coding in JavaScript!
-
--Typescript IS JavaScript, or better put, a superset of JavaScript, more specifically JavaScript on version ES6. You know, that sixth version we talked about before?
 
 I thought ES2016+ was already a superset of ES6! WHY we need now this thing called Typescript?
 
